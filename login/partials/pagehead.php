@@ -49,6 +49,8 @@ try {
         include_once($conf->base_dir.'/login/ajax/cookiedecode.php');
     }
 
+    echo "</head>\n    <body>\n";
+
     //Pulls navbar
     if (array_key_exists('username', $_SESSION)) {
 
