@@ -22,7 +22,7 @@ if ($auth->isLoggedIn()){
     <p><b><em>Account Settings</em></b> - Change your email address and/or password</p>';
 
     if ($auth->isAdmin()) {
-        echo '<p><b><em>Verify/Delete Users</em></b> - Admin mass verify or delete new user requests</p>';
+        echo '<p><b><em>Users</em></b> - Administer users and user requests</p>';
     }
 
     if ($auth->isSuperAdmin()) {
@@ -40,8 +40,6 @@ if ($auth->isLoggedIn()){
 ?>
 
         </div><div class="col-lg-2"></div>
-
-
 
     </div>
 </body>

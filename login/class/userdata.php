@@ -185,6 +185,23 @@ class UserData extends DbConn
         return $result;
     }
 
+    public static function userActiveList()
+    {
+        try {
+            $db = new DbConn;
+            $stmt = $db->conn->prepare("SELECT id, email, username, mod_timestamp as timestamp, admin, superadmin FROM ".$db->tbl_members." m LEFT OUTER JOIN ".$db->tbl_admins." a ON m.id=a.userid ORDER BY superadmin DESC, admin DESC, timestamp DESC");
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+
+            $result = "Error: " . $e->getMessage();
+
+        }
+
+        return $result;
+    }
+
     public static function adminEmailList(){
 
         try {

@@ -53,11 +53,11 @@ function verifyAll(){
 
 $(document).ready(function(){
     $("#selectAll").change(function () {
-        $("input:checkbox").prop('checked', $(this).prop("checked"));
-        if ($("input:checkbox").is(":checked")) {
-            $("input:checkbox").closest('tr').addClass("checkedrow");
+        $("input:checkbox.newuser").prop('checked', $(this).prop("checked"));
+        if ($("input:checkbox.newuser").is(":checked")) {
+            $("input:checkbox.newuser").closest('tr').addClass("checkedrow");
         } else {
-            $("input:checkbox").closest('tr').removeClass("checkedrow");
+            $("input:checkbox.newuser").closest('tr').removeClass("checkedrow");
         }
 
     });
