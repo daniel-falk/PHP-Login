@@ -16,9 +16,14 @@ class Delete extends DbConn
 
             $ddb = new DbConn;
             $tbl_members = $ddb->tbl_members;
+            $tbl_admins = $ddb->tbl_admins;
             $derr = '';
 
-            $ddb = new DbConn;
+            // Check if the user has a admin-table-row and remove it to avoid Integrity constraint violation error
+            $dstmt = $ddb->conn->prepare('delete from '.$tbl_admins.' WHERE userid = :uid');
+            $dstmt->bindParam(':uid', $userid);
+            $dstmt->execute();
+
             $dstmt = $ddb->conn->prepare('delete from '.$tbl_members.' WHERE id = :uid');
             $dstmt->bindParam(':uid', $userid);
             $dstmt->execute();
@@ -28,7 +33,7 @@ class Delete extends DbConn
             $derr = 'Error: ' . $d->getMessage();
         }
 
-    $resp = ($derr == '') ? true : $derr;
+        $resp = ($derr == '') ? true : $derr;
 
         return $resp;
     }

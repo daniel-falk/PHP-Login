@@ -8,7 +8,9 @@ require 'login/autoload.php';
 
 session_start();
 
-if ((new AuthorizationHandler)->pageOk("adminpage")) {
+$auth = new AuthorizationHandler;
+
+if ($auth->pageOk("adminpage")) {
 
     //Pulls variables from url. Can pass 1 (verified) or 0 (unverified/blocked) into url
 
@@ -19,7 +21,7 @@ if ((new AuthorizationHandler)->pageOk("adminpage")) {
     if ((isset($ids)) && sizeof($ids) >= 1) {
 
         $e = new UserData;
-        $eresult = $e->userDataPull($uid, 0);
+        $eresult = $e->userDataPull($uid, $auth->isSuperAdmin() ? NULL : 0);
 
         foreach($eresult as $e) {
 
@@ -35,10 +37,10 @@ if ((new AuthorizationHandler)->pageOk("adminpage")) {
 
                     echo $dresponse;
 
-                    } else {
-                        //Validation error from empty form variables
-                        //header('HTTP/1.1 400 Bad Request');
-                        throw new Exception("Failure");
+                } else {
+                    //Validation error from empty form variables
+                    //header('HTTP/1.1 400 Bad Request');
+                    throw new Exception("Failure");
                 }
 
             } catch(Exception $ex) {

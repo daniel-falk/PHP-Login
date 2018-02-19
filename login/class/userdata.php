@@ -12,7 +12,7 @@ class UserData extends DbConn
             try {
                 $in = str_repeat('?,', count($idset) - 1) . '?';
 
-                $sql = "SELECT id, email, username FROM ".$tbl_members." WHERE admin = ".$admin." and id IN ($in)";
+                $sql = "SELECT id, email, username FROM ".$tbl_members." WHERE ".(is_null($admin)?"":"admin = ".$admin." and ")."id IN ($in)";
 
                 $stmt = $db->conn->prepare($sql);
                 $stmt->execute($idset);
